@@ -1,0 +1,34 @@
+import random
+import schedule
+import time
+
+from twilio.rest import Client
+from twilio_credentials import cellphone, twilio_account, twilio_token, twilio_number
+
+GOOD_MORNING_QUOTES = [
+    "Good Morning Love! Hope You have an amazing day",
+    "Good Morning Babe! Hope you slept well",
+    "Hope you have a great day today my love!",
+    "Love you so much babe, have a great day!"
+]
+
+# Step 2: Send Preset Messages Using API
+def send_message(quote_list=GOOD_MORNING_QUOTES):
+
+    account = 'enter_account_number'
+    token = 'enter_token_number'
+    client = Client(account, token)
+    quote = quotes_list[random.randint(0, len(quotes_list) - 1)]
+
+    client.messages.create(body=quote,
+                           from_='+44 ',
+                           to='+44 '
+                           )
+
+# Step 3: Every Morning, Use a library that can schedule Text at certain times
+schedule.every().day.at("9:00").do(send_message,GOOD_MORNING_QUOTES)
+
+while True:
+    # Checks whether a scheduled task is pending to run or not
+    schedule.run_pending()
+    time.sleep(2)
